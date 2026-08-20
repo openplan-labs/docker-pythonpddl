@@ -1,6 +1,6 @@
 [submodule "pddl-examples"]
 	path = pddl-examples
-	url = https://github.com/APLA-Toolbox/pddl-examples
+	url = https://github.com/openplan-labs/pddl-examples
 [submodule "PythonPDDL"]
 	path = PythonPDDL
-	url = https://github.com/APLA-Toolbox/PythonPDDL
+	url = https://github.com/openplan-labs/PythonPDDL

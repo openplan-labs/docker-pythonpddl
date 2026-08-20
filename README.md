@@ -6,7 +6,7 @@ A Dockerized version of PythonPDDL
 
 - Install docker
 - Install docker-compose
-- Clone the project: `git clone https://github.com/apla-toolbox/docker-pythonpddl`
+- Clone the project: `git clone https://github.com/openplan-labs/docker-pythonpddl`
 
 ## Usage
 
@@ -23,4 +23,4 @@ A Dockerized version of PythonPDDL
 ### Terminal 2
 
 - Attach yourself to the bash env of the dev docker: `docker exec -it $(docker ps -qf "name=docker_python-pddl") /bin/bash`
-- Use [the PythonPDDL Readme](https://github.com/apla-toolbox/readme.md) guidelines
+- Use [the PythonPDDL Readme](https://github.com/openplan-labs/readme.md) guidelines

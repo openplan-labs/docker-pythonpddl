@@ -16,13 +16,13 @@ RUN wget https://julialang-s3.julialang.org/bin/linux/x64/1.5/julia-1.5.2-linux-
 RUN tar -xvzf julia-1.5.2-linux-x86_64.tar.gz
 RUN cp -r julia-1.5.2 /opt/
 RUN ln -s /opt/julia-1.5.2/bin/julia /usr/local/bin/julia
-RUN julia --color=yes -e 'using Pkg; Pkg.add(Pkg.PackageSpec(path="https://github.com/APLA-Toolbox/PDDL.jl"))'
+RUN julia --color=yes -e 'using Pkg; Pkg.add(Pkg.PackageSpec(path="https://github.com/openplan-labs/PDDL.jl"))'
 RUN julia --color=yes -e 'using Pkg; Pkg.add(Pkg.PackageSpec(path="https://github.com/JuliaPy/PyCall.jl"))'
 RUN cd /
 
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-RUN julia --color=yes -e 'using Pkg; Pkg.add(Pkg.PackageSpec(path="https://github.com/APLA-Toolbox/PDDL.jl"))'
+RUN julia --color=yes -e 'using Pkg; Pkg.add(Pkg.PackageSpec(path="https://github.com/openplan-labs/PDDL.jl"))'
 RUN julia --color=yes -e 'using Pkg; Pkg.add(Pkg.PackageSpec(path="https://github.com/JuliaPy/PyCall.jl"))'
 
 WORKDIR /pythonpddl
