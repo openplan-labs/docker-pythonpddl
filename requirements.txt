@@ -1,3 +1,1 @@
-julia==0.5.6
-coloredlogs==15.0
-matplotlib==3.3.3
+jupyddl==2.3.0

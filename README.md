@@ -1,26 +1,57 @@
-# Docker PythonPDDL
+<div align="center">
 
-A Dockerized version of PythonPDDL
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/openplan-labs/branding/main/assets/logo/mark-dark.svg">
+  <img src="https://raw.githubusercontent.com/openplan-labs/branding/main/assets/logo/mark-accent.svg" width="44" alt="OpenPlan Labs">
+</picture>
 
-## Requirements
+# docker-pythonpddl
 
-- Install docker
-- Install docker-compose
-- Clone the project: `git clone https://github.com/openplan-labs/docker-pythonpddl`
+[PythonPDDL](https://github.com/openplan-labs/PythonPDDL) (`jupyddl`) in a container.
 
-## Usage
+[![Docker Image CI](https://github.com/openplan-labs/docker-pythonpddl/actions/workflows/docker_image_ci.yml/badge.svg)](https://github.com/openplan-labs/docker-pythonpddl/actions/workflows/docker_image_ci.yml)
+[![License](https://img.shields.io/github/license/openplan-labs/docker-pythonpddl.svg)](LICENSE)
 
-### Prepare the docker
+</div>
 
-- Copy .env.example into .env
-- Enter the domain path, problem path and log level (WARNING, FATAL, DEBUG, INFO...)
+Parse, ground and solve PDDL instances without installing anything but Docker.
+The image is `python:3.12-slim` plus [`jupyddl`](https://pypi.org/project/jupyddl/)
+from PyPI — no Julia, no submodules, nothing to build.
 
-### Terminal 1
+## Solve an instance
 
-- Go to the repo directory: `cd docker-pythonpddl`
-- Build and run the docker: `docker-compose -f docker/docker-compose.yml up`
-- Wait for termination of the process... (Line: "Attaching to docker python-pddl_1")
-### Terminal 2
+```sh
+docker compose -f docker/docker-compose.yml build
 
-- Attach yourself to the bash env of the dev docker: `docker exec -it $(docker ps -qf "name=docker_python-pddl") /bin/bash`
-- Use [the PythonPDDL Readme](https://github.com/openplan-labs/readme.md) guidelines
+# The repo is mounted at /workspace, so any PDDL file in it is visible.
+docker compose -f docker/docker-compose.yml run --rm \
+  -e DOMAIN=examples/dinner/domain.pddl \
+  -e PROBLEM=examples/dinner/problem.pddl \
+  python-pddl
+```
+
+`PLANNER` (default `astar`) and `HEURISTIC` (default `lmcut`) select the
+search and heuristic — any name `jupyddl solve --help` lists. You can also
+copy `.env.example` to `.env` and set them once.
+
+## Use your own PDDL files
+
+Anything in the repository directory is mounted at `/workspace`. Drop your
+`domain.pddl`/`problem.pddl` anywhere in it and point `DOMAIN`/`PROBLEM` at
+the relative paths. For a larger collection, see
+[pddl-examples](https://github.com/openplan-labs/pddl-examples).
+
+## Interactive session
+
+Started without `DOMAIN`/`PROBLEM`, the container stays up so you can work
+inside it:
+
+```sh
+docker compose -f docker/docker-compose.yml up -d
+docker compose -f docker/docker-compose.yml exec python-pddl bash
+jupyddl solve examples/dinner/domain.pddl examples/dinner/problem.pddl
+```
+
+## License
+
+[Apache-2.0](LICENSE). Part of [OpenPlan Labs](https://github.com/openplan-labs).

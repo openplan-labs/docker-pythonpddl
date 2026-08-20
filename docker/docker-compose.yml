@@ -1,18 +1,12 @@
-
-version: '2'
 services:
     python-pddl:
-        build: 
+        build:
             context: ..
-            dockerfile: ./docker/Dockerfile
+            dockerfile: docker/Dockerfile
         volumes:
-            - ../:/pythonpddl
-        ports:
-            - 8080
+            - ../:/workspace
         environment:
-            - ENV=dev
             - DOMAIN
             - PROBLEM
             - PLANNER
             - HEURISTIC
-            - LOG_LEVEL

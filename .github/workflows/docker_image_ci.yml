@@ -1,15 +1,19 @@
 name: Docker Image CI
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
   build:
-    runs-on: ubuntu-latest 
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Build the docker-compose stack
-        run: docker-compose -f docker/docker-compose.yml up --build --force-recreate
-      
-      - name: Check if container is running
-        run: /bin/bash -c "[[ $(docker ps -qf "name=docker_python-pddl") != "" ]] && echo "Ok" || exit 1"
+      - uses: actions/checkout@v5
 
+      - name: Build the image
+        run: docker compose -f docker/docker-compose.yml build
+
+      - name: Smoke test — solve a sample instance
+        run: >
+          docker compose -f docker/docker-compose.yml run --rm
+          -e DOMAIN=examples/dinner/domain.pddl
+          -e PROBLEM=examples/dinner/problem.pddl
+          python-pddl
