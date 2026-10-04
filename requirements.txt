@@ -1,1 +1,1 @@
-jupyddl==2.3.0
+jupyddl==2.4.0
